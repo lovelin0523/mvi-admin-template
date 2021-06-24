@@ -20,7 +20,7 @@
 				</div>
 			</template>
 		</m-table>
-		<m-page style="width:10rem;" v-model="pageCurrent" :total="total" prev-icon="angle-left" prev-text="" next-text="" next-icon="angle-right" first-icon="angle-double-left" last-icon="angle-double-right" :over-number="7"></m-page>
+		<m-page class="app-page" v-model="pageCurrent" :total="total" prev-icon="angle-left" prev-text="" next-text="" next-icon="angle-right" first-icon="angle-double-left" last-icon="angle-double-right"></m-page>
 	</div>
 </template>
 

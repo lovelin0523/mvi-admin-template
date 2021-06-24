@@ -106,11 +106,15 @@ html {
 		width: 100%;
 		height: 100%;
 		position: relative;
-		overflow-x: auto;
+		overflow-x: hidden;
 		overflow-y: auto;
 		background-color: #fbfbfb;
 		padding: 0.2rem;
 	}
+}
+
+.app-page{
+	width: 8rem !important;
 }
 
 ::-webkit-scrollbar {
