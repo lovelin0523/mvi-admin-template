@@ -108,7 +108,7 @@
 					this.$refs.verify.draw();
 					return;
 				}
-				var admin = {
+				let admin = {
 					account : this.account,
 					remember: this.remember
 				}

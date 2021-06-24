@@ -1,19 +1,19 @@
 <template>
-	<div :class="'app-sidebar'+(expand?'':' expand')" :style="{backgroundColor:$store.getters.theme.sidebarBackground}">
+	<div :class="['app-sidebar',expand?'':'expand']" :style="{backgroundColor:$store.getters.theme.sidebarBackground}">
 		<!-- 侧边栏头部 -->
 		<div @click="goHome" class="app-sidebar-header" >
-			<m-image :class="'app-sidebar-logo'+(expand?'':' expand')" :src="$config.root+'logo.png'"></m-image>
+			<m-image :class="['app-sidebar-logo',expand?'':'expand']" :src="$config.root+'logo.png'"></m-image>
 			<span v-if="expand" class="app-sidebar-title" :style="{color:$store.getters.theme.sidebarTitleColor}">Template</span>
 		</div>
 		<m-collapse ref="collapse" v-if="expand" class="app-sidebar-collapse" v-model="tabIndex" accordion :in-border="false" :out-border="false" @model-change="goRootTab"
 		arrow-class="app-sidebar-collapse_arrow" open-arrow="caret-down" close-arrow="caret-right" :style="{backgroundColor:$store.getters.theme.sidebarBackground,color:$store.getters.theme.sidebarCollapseColor}">
 			<m-collapse-item v-for="(item,index) in rootTabs" :key="'root-tab-'+index" :title="item.meta.tabName"  
 			content-class="mvi-p-0" :icon="tabIcon(item)">
-				<router-link :to="el.path" :class="'app-sidebar-el'+($route.name == el.name?' active':'')" v-for="(el,i) in childrenTabs(item)" :key="'child-tab-'+i" v-text="el.meta.tabName" tag="div" :style="{color:($route.name==el.name?$store.getters.theme.themeTextColor:''),backgroundColor:($route.name==el.name?$store.getters.theme.themeColor:'')}"></router-link>
+				<router-link :to="el.path" :class="['app-sidebar-el',$route.name == el.name?'active':'']" v-for="(el,i) in childrenTabs(item)" :key="'child-tab-'+i" v-text="el.meta.tabName" tag="div" :style="{color:($route.name==el.name?$store.getters.theme.themeTextColor:''),backgroundColor:($route.name==el.name?$store.getters.theme.themeColor:'')}"></router-link>
 			</m-collapse-item>
 		</m-collapse>
 		<div v-else>
-			<div @click="goTab(item,index)" :class="'app-sidebar-expand'+(tabIndex == index?' active':'')" v-for="(item,index) in rootTabs" :key="'root-tab-expand-'+index" :style="{color:$store.getters.theme.sidebarCollapseColor}">
+			<div @click="goTab(item,index)" :class="['app-sidebar-expand',tabIndex == index?'active':'']" v-for="(item,index) in rootTabs" :key="'root-tab-expand-'+index" :style="{color:$store.getters.theme.sidebarCollapseColor}">
 				<div v-if="tabIndex == index" class="app-sidebar-expand-border" :style="{backgroundColor:$store.getters.theme.themeColor}"></div>
 				<m-icon :type="tabIcon(item).type" :url="tabIcon(item).url" :spin="tabIcon(item).spin" :size="tabIcon(item).size" />
 			</div>
@@ -41,10 +41,10 @@
 			},
 			tabIcon(){
 				return item=>{
-					var url = null;
-					var type = null;
-					var spin = false;
-					var size = null;
+					let url = null;
+					let type = null;
+					let spin = false;
+					let size = null;
 					if(item.meta && item.meta.tabIcon){
 						if(this.$util.isObject(item.meta.tabIcon)){
 							url = item.meta.tabIcon.url;
@@ -61,10 +61,10 @@
 				}
 			},
 			rootTabs(){
-				var arr = [];
-				var routes = this.$router.options.routes;
-				var length = routes.length;
-				for(var i = 0;i<length;i++){
+				let arr = [];
+				let routes = this.$router.options.routes;
+				let length = routes.length;
+				for(let i = 0;i<length;i++){
 					if(routes[i].meta && routes[i].meta.tab && !routes[i].meta.parentTab){
 						arr.push(routes[i])
 					}
@@ -73,10 +73,10 @@
 			},
 			childrenTabs(){
 				return item=>{
-					var arr = [];
-					var routes = this.$router.options.routes;
-					var length = routes.length;
-					for(var i = 0;i<length;i++){
+					let arr = [];
+					let routes = this.$router.options.routes;
+					let length = routes.length;
+					for(let i = 0;i<length;i++){
 						if(routes[i].meta && routes[i].meta.tab && routes[i].meta.parentTab==item.name){
 							arr.push(routes[i])
 						}
@@ -120,7 +120,7 @@
 			//点击侧边栏一级目录
 			goRootTab(){
 				if(this.tabIndex!=null && this.tabIndex>=0){
-					var route = this.rootTabs[this.tabIndex];
+					let route = this.rootTabs[this.tabIndex];
 					this.$router.push(route.path)
 				}
 			},
@@ -132,12 +132,12 @@
 			},
 			//设置tabIndex
 			setTabIndex(){
-				var rootTabslength = this.rootTabs.length;
-				var index = -1;
-				for(var i = 0;i<rootTabslength;i++){
-					var root = this.rootTabs[i];
-					var children = this.childrenTabs(root);
-					for(var j = 0;j<children.length;j++){
+				let rootTabslength = this.rootTabs.length;
+				let index = -1;
+				for(let i = 0;i<rootTabslength;i++){
+					let root = this.rootTabs[i];
+					let children = this.childrenTabs(root);
+					for(let j = 0;j<children.length;j++){
 						if(children[j].name == this.$route.name){
 							index = i;
 							break;
@@ -164,6 +164,7 @@
 		overflow-x: hidden;
 		overflow-y: auto;
 		transition: all 200ms;
+		-webkit-transition: all 200ms;
 		
 		&.expand{
 			width: 1rem;

@@ -261,8 +261,8 @@ export default {
 				this.fullScreen = false;
 			} else {
 				//全屏
-				var el = document.documentElement;
-				var rfs = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullscreen;
+				let el = document.documentElement;
+				let rfs = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullscreen;
 				if (typeof rfs != 'undefined' && rfs) {
 					this.fullScreen = true;
 					rfs.call(el);
