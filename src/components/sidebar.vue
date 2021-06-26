@@ -91,6 +91,7 @@
 			}
 		},
 		mounted() {
+			this.setTabIndex()
 			if(this.expand){
 				this.$refs.collapse.$el.querySelectorAll('.mvi-cell-arrow').forEach(el=>{
 					el.style.color = this.$store.getters.theme.sidebarCollapseColor
