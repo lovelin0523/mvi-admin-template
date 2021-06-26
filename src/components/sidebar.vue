@@ -9,7 +9,9 @@
 		arrow-class="app-sidebar-collapse_arrow" open-arrow="caret-down" close-arrow="caret-right" :style="{backgroundColor:$store.getters.theme.sidebarBackground,color:$store.getters.theme.sidebarCollapseColor}">
 			<m-collapse-item v-for="(item,index) in rootTabs" :key="'root-tab-'+index" :title="item.meta.tabName"  
 			content-class="mvi-p-0" :icon="tabIcon(item)">
-				<router-link :to="el.path" :class="['app-sidebar-el',$route.name == el.name?'active':'']" v-for="(el,i) in childrenTabs(item)" :key="'child-tab-'+i" v-text="el.meta.tabName" tag="div" :style="{color:($route.name==el.name?$store.getters.theme.themeTextColor:''),backgroundColor:($route.name==el.name?$store.getters.theme.themeColor:'')}"></router-link>
+				<router-link :to="el.path" :class="['app-sidebar-el',$route.name == el.name?'active':'']" v-for="(el,i) in childrenTabs(item)" :key="'child-tab-'+i" :style="{color:($route.name==el.name?$store.getters.theme.themeTextColor:''),backgroundColor:($route.name==el.name?$store.getters.theme.themeColor:'')}" v-slot="{ navigate }">
+					<div v-text="el.meta.tabName" @click="navigate"></div>
+				</router-link>
 			</m-collapse-item>
 		</m-collapse>
 		<div v-else>
