@@ -15,7 +15,7 @@
 			</m-collapse-item>
 		</m-collapse>
 		<div v-else>
-			<div @click="goTab(item,index)" :class="['app-sidebar-expand',tabIndex == index?'active':'']" v-for="(item,index) in rootTabs" :key="'root-tab-expand-'+index" :style="{color:$store.getters.theme.sidebarCollapseColor}">
+			<div @click="goTab(item)" :class="['app-sidebar-expand',tabIndex == index?'active':'']" v-for="(item,index) in rootTabs" :key="'root-tab-expand-'+index" :style="{color:$store.getters.theme.sidebarCollapseColor}">
 				<div v-if="tabIndex == index" class="app-sidebar-expand-border" :style="{backgroundColor:$store.getters.theme.themeColor}"></div>
 				<m-icon :type="tabIcon(item).type" :url="tabIcon(item).url" :spin="tabIcon(item).spin" :size="tabIcon(item).size" />
 			</div>
@@ -129,7 +129,6 @@
 			},
 			//侧边栏收起状态下点击图标
 			goTab(item,index){
-				this.tabIndex = index;
 				this.$router.push(item.path);
 				this.$emit('update:expand',true)
 			},
