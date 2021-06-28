@@ -1,9 +1,9 @@
 <template>
 	<div id="app">
-		<sidebar :expand.sync="expand" ref="sidebar" v-if="isShow"></sidebar>
-		<div class="app-main" :style="mainStyle">
-			<topbar ref="topbar" :expand.sync="expand" v-if="isShow" @refresh="refresh"></topbar>
-			<keep-alive :include="$store.getters.cachePages"><router-view class="app-main_body" :style="{height:bodyHeight}"></router-view></keep-alive>
+		<sidebar :expand.sync="expand" ref="sidebar" v-if="!$route.meta.free"></sidebar>
+		<div class="app-main">
+			<topbar ref="topbar" :expand.sync="expand" v-if="!$route.meta.free" @refresh="refresh"></topbar>
+			<keep-alive :include="$store.getters.cachePages"><router-view class="app-main_body"></router-view></keep-alive>
 		</div>
 	</div>
 </template>
@@ -16,54 +16,11 @@ export default {
 		return {
 			expand: true, //侧边栏是否展开
 			viewKey: 0 ,//路由视图key值
-			bodyHeight:'',//主体区域高度
 		};
-	},
-	computed: {
-		isShow(){
-			if(!this.$route.name){
-				return false;
-			}
-			if(!this.$route.meta.free){
-				return true;
-			}
-			return false;
-		},
-		//主区域宽度设置
-		mainStyle() {
-			let style = {};
-			if (!this.$route.meta.free) {
-				if (this.expand) {
-					style.width = 'calc(100% - 4.4rem)';
-				} else {
-					style.width = 'calc(100% - 1rem)';
-				}
-			}
-			return style;
-		}
 	},
 	components: {
 		sidebar,
 		topbar
-	},
-	watch:{
-		'$route.name':function(newValue){
-			if (this.isShow) {
-				this.$nextTick(()=>{
-					if (this.$refs.topbar) {
-						if (this.$refs.topbar.tabs.length > 0) {
-							this.bodyHeight = 'calc(100% - 2rem)';
-						} else {
-							this.bodyHeight = 'calc(100% - 1rem)';
-						}
-					} else {
-						this.bodyHeight = 'calc(100% - 1rem)';
-					}
-				})
-			}else {
-				this.bodyHeight = '';
-			}
-		}
 	},
 	methods: {
 		//刷新事件
@@ -105,19 +62,23 @@ html {
 }
 
 .app-main {
-	display: block;
+	display: flex;
+	display: -webkit-flex;
+	justify-content: flex-start;
+	flex-direction: column;
+	-webkit-flex-direction:column;
 	width: 100%;
+	flex: 1;
 	height: 100%;
 	overflow-x: hidden;
 	overflow-y: auto;
 	position: relative;
-	transition: all 200ms;
-	-webkit-transition: all 200ms;
 
 	.app-main_body {
 		display: block;
 		width: 100%;
 		height: 100%;
+		flex: 1;
 		position: relative;
 		overflow-x: hidden;
 		overflow-y: auto;
