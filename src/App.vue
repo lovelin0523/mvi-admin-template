@@ -1,8 +1,8 @@
 <template>
 	<div id="app">
-		<sidebar :expand.sync="expand" ref="sidebar" v-if="!$route.meta.free"></sidebar>
+		<sidebar :expand.sync="expand" ref="sidebar" v-if="isShow"></sidebar>
 		<div class="app-main">
-			<topbar ref="topbar" :expand.sync="expand" v-if="!$route.meta.free" @refresh="refresh"></topbar>
+			<topbar ref="topbar" :expand.sync="expand" v-if="isShow" @refresh="refresh"></topbar>
 			<keep-alive :include="$store.getters.cachePages"><router-view class="app-main_body"></router-view></keep-alive>
 		</div>
 	</div>
@@ -21,6 +21,14 @@ export default {
 	components: {
 		sidebar,
 		topbar
+	},
+	computed:{
+		isShow(){
+			if(!this.$route.name){
+				return false;
+			}
+			return !this.$route.meta.free
+		}
 	},
 	methods: {
 		//刷新事件
@@ -70,8 +78,7 @@ html {
 	width: 100%;
 	flex: 1;
 	height: 100%;
-	overflow-x: hidden;
-	overflow-y: auto;
+	overflow: hidden;
 	position: relative;
 
 	.app-main_body {
