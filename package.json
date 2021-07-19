@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "mvi-web": "^4.8.9",
+    "mvi-web": "^4.9.0",
     "ruax": "^1.6.3",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
