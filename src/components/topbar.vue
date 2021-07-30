@@ -88,8 +88,8 @@
 							<div @click="themeColorShow = !themeColorShow" class="app-skin-demo" :style="{ backgroundColor: theme.themeColor }"></div>
 						</template>
 					</m-input>
-					<m-layer v-model="themeColorShow" target="#color-1" fixed width="7rem" closable>
-						<m-color-picker hex :show-alpha="false" v-model="theme.themeColor"></m-color-picker>
+					<m-layer v-model="themeColorShow" target="#color-1" fixed width="7rem" closable @show="themeColorPickerShow=true" @hidden="themeColorPickerShow=false">
+						<m-color-picker v-if="themeColorPickerShow" hex :show-alpha="false" v-model="theme.themeColor"></m-color-picker>
 					</m-layer>
 				</div>
 				<div class="mvi-mb-4">
@@ -99,8 +99,8 @@
 						</template>
 					</m-input>
 					<div class="mvi-text-muted mvi-font-small mvi-pl-2 mvi-mt-1">* 当主色调颜色为背景色时，该颜色用于设置主色调背景上的字体颜色</div>
-					<m-layer v-model="themeTextColorShow" target="#color-2" fixed width="7rem" closable>
-						<m-color-picker hex :show-alpha="false" v-model="theme.themeTextColor"></m-color-picker>
+					<m-layer v-model="themeTextColorShow" target="#color-2" fixed width="7rem" closable @show="themeTextColorPickerShow=true" @hidden="themeTextColorPickerShow=false">
+						<m-color-picker v-if="themeTextColorPickerShow" hex :show-alpha="false" v-model="theme.themeTextColor"></m-color-picker>
 					</m-layer>
 				</div>
 				<div class="mvi-mb-4">
@@ -109,8 +109,8 @@
 							<div class="app-skin-demo" @click="sidebarBackgroundShow = !sidebarBackgroundShow" :style="{ backgroundColor: theme.sidebarBackground }"></div>
 						</template>
 					</m-input>
-					<m-layer v-model="sidebarBackgroundShow" target="#color-3" fixed width="7rem" closable>
-						<m-color-picker hex :show-alpha="false" v-model="theme.sidebarBackground"></m-color-picker>
+					<m-layer v-model="sidebarBackgroundShow" target="#color-3" fixed width="7rem" closable @show="sidebarBackgroundPickerShow=true" @hidden="sidebarBackgroundPickerShow=false">
+						<m-color-picker v-if="sidebarBackgroundPickerShow" hex :show-alpha="false" v-model="theme.sidebarBackground"></m-color-picker>
 					</m-layer>
 				</div>
 				<div class="mvi-mb-4">
@@ -119,8 +119,8 @@
 							<div class="app-skin-demo" @click="sidebarTitleColorShow = !sidebarTitleColorShow" :style="{ backgroundColor: theme.sidebarTitleColor }"></div>
 						</template>
 					</m-input>
-					<m-layer v-model="sidebarTitleColorShow" target="#color-4" fixed width="7rem" closable>
-						<m-color-picker hex :show-alpha="false" v-model="theme.sidebarTitleColor"></m-color-picker>
+					<m-layer v-model="sidebarTitleColorShow" target="#color-4" fixed width="7rem" closable @show="sidebarTitleColorPickerShow=true" @hidden="sidebarTitleColorPickerShow=false">
+						<m-color-picker v-if="sidebarTitleColorPickerShow" hex :show-alpha="false" v-model="theme.sidebarTitleColor"></m-color-picker>
 					</m-layer>
 				</div>
 				<div class="mvi-mb-4">
@@ -129,8 +129,8 @@
 							<div class="app-skin-demo" @click="sidebarCollapseColorShow = !sidebarCollapseColorShow" :style="{ backgroundColor: theme.sidebarCollapseColor }"></div>
 						</template>
 					</m-input>
-					<m-layer v-model="sidebarCollapseColorShow" target="#color-5" fixed width="7rem" closable>
-						<m-color-picker hex :show-alpha="false" v-model="theme.sidebarCollapseColor"></m-color-picker>
+					<m-layer v-model="sidebarCollapseColorShow" target="#color-5" fixed width="7rem" closable @show="sidebarCollapseColorPickerShow=true" @hidden="sidebarCollapseColorPickerShow=false">
+						<m-color-picker v-if="sidebarCollapseColorPickerShow" hex :show-alpha="false" v-model="theme.sidebarCollapseColor"></m-color-picker>
 					</m-layer>
 				</div>
 				<div class="mvi-mb-4">
@@ -143,8 +143,8 @@
 							></div>
 						</template>
 					</m-input>
-					<m-layer v-model="topbarNoteHeaderBackgroundShow" target="#color-6" fixed width="7rem" closable>
-						<m-color-picker hex :show-alpha="false" v-model="theme.topbarNoteHeaderBackground"></m-color-picker>
+					<m-layer v-model="topbarNoteHeaderBackgroundShow" target="#color-6" fixed width="7rem" closable @show="topbarNoteHeaderBackgroundPickerShow=true" @hidden="topbarNoteHeaderBackgroundPickerShow=false">
+						<m-color-picker v-if="topbarNoteHeaderBackgroundPickerShow" hex :show-alpha="false" v-model="theme.topbarNoteHeaderBackground"></m-color-picker>
 					</m-layer>
 				</div>
 				<div class="mvi-mb-4">
@@ -157,8 +157,8 @@
 							></div>
 						</template>
 					</m-input>
-					<m-layer v-model="topbarNoteHeaderColorShow" target="#color-7" fixed width="7rem" closable>
-						<m-color-picker hex :show-alpha="false" v-model="theme.topbarNoteHeaderColor"></m-color-picker>
+					<m-layer v-model="topbarNoteHeaderColorShow" target="#color-7" fixed width="7rem" closable @show="topbarNoteHeaderColorPickerShow=true" @hidden="topbarNoteHeaderColorPickerShow=false">
+						<m-color-picker v-if="topbarNoteHeaderColorPickerShow" hex :show-alpha="false" v-model="theme.topbarNoteHeaderColor"></m-color-picker>
 					</m-layer>
 				</div>
 				<div class="app-skin-btn">
@@ -188,7 +188,14 @@ export default {
 			sidebarTitleColorShow: false,
 			sidebarCollapseColorShow: false,
 			topbarNoteHeaderBackgroundShow: false,
-			topbarNoteHeaderColorShow: false
+			topbarNoteHeaderColorShow: false,
+			themeColorPickerShow: false,
+			themeTextColorPickerShow: false,
+			sidebarBackgroundPickerShow: false,
+			sidebarTitleColorPickerShow: false,
+			sidebarCollapseColorPickerShow: false,
+			topbarNoteHeaderBackgroundPickerShow: false,
+			topbarNoteHeaderColorPickerShow: false
 		};
 	},
 	props: {
