@@ -1,14 +1,14 @@
 <template>
-	<div></div>
+    <div></div>
 </template>
 
 <script>
-	export default {
-		name:'reload',
-		created() {
-			this.$router.replace(this.$route.query.redirect || '/')
-		}
-	}
+export default {
+    name: 'reload',
+    created() {
+        this.$router.replace(this.$route.query.redirect || '/')
+    }
+}
 </script>
 
 <style>
